@@ -4,13 +4,13 @@ import com.credibanco.ms.dto.TransaccionDto;
 import com.credibanco.ms.entity.TransaccionEntity;
 import com.credibanco.ms.service.TransaccionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/credibanco/transacciones")
+@CrossOrigin
 public class TransaccionController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class TransaccionController {
 
     }
 
-    @PostMapping("AnularTransaccion")
+    @PostMapping("/anularTransaccion")
     public TransaccionDto anularTransaccion(@RequestBody TransaccionDto infoTransaccion) {
 
         return transaccionService.anularTransaccion(infoTransaccion);

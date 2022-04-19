@@ -7,12 +7,12 @@ import com.credibanco.ms.entity.TarjetaEntity;
 import com.credibanco.ms.service.TarjetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.ws.rs.QueryParam;
 
 @RestController
 @RequestMapping("/credibanco/tarjeta")
+@CrossOrigin
 public class TarjetaController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class TarjetaController {
 
     }
 
-    @DeleteMapping("/eliminarTarjeta")
+    @PostMapping("/eliminarTarjeta")
     public TarjetaDto eliminarTarjeta(@RequestBody TarjetaEntity infoTarjeta) {
 
         return tarjetaService.eliminarTarjeta(infoTarjeta);

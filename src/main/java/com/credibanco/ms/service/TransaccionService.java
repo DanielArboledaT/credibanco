@@ -77,7 +77,7 @@ public class TransaccionService {
         Date fechaTransaccion = new Date(transaccion.getFechatransaccion().getTime());
 
         long diff = fechaActual.getTime() - fechaTransaccion.getTime();
-        long minutos = TimeUnit.MILLISECONDS.toMinutes(diff) - 170;
+        long minutos = TimeUnit.MILLISECONDS.toMinutes(diff);
 
         logger.info("Minutos de diferencia" + minutos);
         if (minutos > 5) {

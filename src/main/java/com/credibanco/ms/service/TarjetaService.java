@@ -9,15 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 @Service
 @Transactional
@@ -106,6 +103,14 @@ public class TarjetaService {
 
     public TarjetaDto consultarTarjeta(String idSistema) {
 
+        try {
+            idSistema = this.encriptarPan(idSistema);
+        } catch (NoSuchAlgorithmException e) {
+            logger.error("Error al encriptar en PAN");
+            return new TarjetaDto("01", "Error al encriptar en PAN", null);
+        }
+
+
         TarjetaEntity tarjeta = tarjetaRepository.findByIdSistema(idSistema);
 
         if (tarjeta == null) {
@@ -121,6 +126,7 @@ public class TarjetaService {
         respuesta.setCedula(tarjeta.getCedula());
         respuesta.setTelefono(tarjeta.getTelefono());
         respuesta.setEstado(tarjeta.getEstado());
+        respuesta.setIdSistema(tarjeta.getIdSistema());
 
         return respuesta;
 
